@@ -9,7 +9,8 @@ export interface State {
     cards: {
         [id: string]: Card
     },
-    /** Maximum number of cards that can be retrieved; beyond that point there's
+    /** 
+     * Maximum number of cards that can be retrieved; beyond that point there's
      * no need to attempt fetching more cards.
      */
     totalCards: number | null;
@@ -17,6 +18,13 @@ export interface State {
     cardListIDs: string[],
     /** ID of the currently selected card, or `null` if no card is selected */
     selectedCardID: string | null,
+    /** 
+     * Dictionary of similar cards. The key is the ID of a card, and the corresponding
+     * value is the list of its similar cards.
+     */
+    similarCardIDs: {
+        [id: string]: string[]
+    }
     pendingRequests: {
         /** Indicates a pending request for more cards in the main list */
         cardList: boolean,
@@ -42,6 +50,7 @@ const initialState: State = {
     cards: {},
     totalCards: null,
     cardListIDs: [],
+    similarCardIDs: {},
     selectedCardID: null,
     pendingRequests: {
         cardList: false,
