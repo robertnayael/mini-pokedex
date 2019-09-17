@@ -4,7 +4,7 @@ import { createEpicMiddleware } from 'redux-observable';
 
 import rootEpic from './epics';
 import reducer from './reducer';
-import apiService from '../apiService';
+import * as apiService from '../apiService';
 import { Action } from './actions';
 import { State } from './state';
 

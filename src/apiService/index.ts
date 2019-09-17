@@ -1,5 +1,1 @@
-import fetchCardBatch from './fetchCardBatch';
-
-export default {
-    fetchCardBatch
-};
+export * from './fetchCardBatch';

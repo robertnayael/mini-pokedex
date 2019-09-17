@@ -3,7 +3,7 @@ import { Epic } from 'redux-observable';
 
 import { ofType } from './helpers';
 import actions, { Action } from '../actions';
-import apiService from '../../apiService';
+import * as apiService from '../../apiService';
 import { State } from '../state';
 import * as selectors from '../selectors';
 
@@ -24,7 +24,7 @@ const nextCardBatchEpic: Epic<Action, Action, State, typeof apiService> = (actio
     map(actions.requestCardBatchSuccess),
     takeUntil(action$.pipe(
         ofType(actions.lastCardBatchRetrieved)
-    )),
+    ))
 );
 
 export { nextCardBatchEpic };
