@@ -7,7 +7,7 @@ class MockFetcher{
 
     constructor(
         private mockResponse: any,
-        private mockHeaders: { [header: string]: string }
+        private mockHeaders: { [header: string]: string } = {}
     ) {}
 
     getRequestedUrl = () => {
