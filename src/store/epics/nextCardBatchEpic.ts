@@ -1,13 +1,12 @@
 import { exhaustMap, map, switchMapTo, takeUntil } from 'rxjs/operators';
 import { Epic } from 'redux-observable';
 
+import { cardBatchSize } from '../../config';
 import { ofType } from './helpers';
 import actions, { Action } from '../actions';
 import * as apiService from '../../apiService';
 import { State } from '../state';
 import * as selectors from '../selectors';
-
-const BATCH_SIZE = 20;
 
 /**
  * Fires off when a new batch of cards is requested. Checks the index of the next batch
@@ -18,9 +17,9 @@ const BATCH_SIZE = 20;
 const nextCardBatchEpic: Epic<Action, Action, State, typeof apiService> = (action$, state$, api) => action$.pipe(
     ofType(actions.requestCardBatch),
     switchMapTo(state$.pipe(
-        map(selectors.getNextBatchIndex(BATCH_SIZE))
+        map(selectors.getNextBatchIndex(cardBatchSize))
     )),
-    exhaustMap(batchIndex => api.fetchCardBatch(BATCH_SIZE, batchIndex)),
+    exhaustMap(batchIndex => api.fetchCardBatch(cardBatchSize, batchIndex)),
     map(actions.requestCardBatchSuccess),
     takeUntil(action$.pipe(
         ofType(actions.lastCardBatchRetrieved)
