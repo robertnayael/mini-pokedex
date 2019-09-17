@@ -1,22 +1,20 @@
-import { ajax } from 'rxjs/ajax';
 import { map } from 'rxjs/operators';
 
 import { Card } from '../models';
+import { fetchJson, getRelevantCardProps } from '../utils';
 
-const fetchCardBatch = (batchSize: number, batchIndex: number) => ajax({
-    url: `https://api.pokemontcg.io/v1/cards?pageSize=${batchSize}&page=${batchIndex + 1}`,
-    method: 'GET'
-}).pipe(
-    map<
-        { response: { cards: Card[] }, xhr: any },
-        {
-            cards: Card[],
-            totalCards: number
-        }
-    >(({ response, xhr }) => ({
-        cards: response.cards,
-        totalCards: parseInt(xhr.getResponseHeader('total-count'), 10)
-    }))
-);
+const jsonProcessor = (data: any): Card[] =>
+    data.cards.map(getRelevantCardProps);
 
-export default fetchCardBatch;
+const fetchCardBatch = (batchSize: number, batchIndex: number, fetcher = fetchJson) =>
+    fetcher(
+        `https://api.pokemontcg.io/v1/cards?pageSize=${batchSize}&page=${batchIndex + 1}`,
+        jsonProcessor
+    ).pipe(
+        map(({ headers, response }) => ({
+            cards: response,
+            totalCards: parseInt(headers.totalCards, 10)
+        }))
+    );
+
+export { fetchCardBatch };
