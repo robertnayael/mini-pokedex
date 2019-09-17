@@ -1,7 +1,7 @@
 import { throwError, of, Subscription } from 'rxjs';
 
 import { fetchCardBatch } from './fetchCardBatch';
-import { MockFetcher } from '../testUtils';
+import { MockFetcher } from '../mocks';
 
 describe('`fetchCardBatch()`', () => {
 
