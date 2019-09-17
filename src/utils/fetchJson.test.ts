@@ -1,5 +1,5 @@
 import { Observable, Subscription } from 'rxjs';
-import xhrMock, { MockRequest, MockResponse } from 'xhr-mock';
+import xhrMock from 'xhr-mock';
 
 import { fetchJson } from './';
 
