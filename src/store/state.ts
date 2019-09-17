@@ -16,7 +16,7 @@ export interface State {
     /** ID's of cards displayed in the main list */
     cardListIDs: string[],
     /** ID of the currently selected card, or `null` if no card is selected */
-    selectedCard: string | null,
+    selectedCardID: string | null,
     pendingRequests: {
         /** Indicates a pending request for more cards in the main list */
         cardList: boolean,
@@ -42,7 +42,7 @@ const initialState: State = {
     cards: {},
     totalCards: null,
     cardListIDs: [],
-    selectedCard: null,
+    selectedCardID: null,
     pendingRequests: {
         cardList: false,
         selectedCard: false,
