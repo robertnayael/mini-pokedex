@@ -12,6 +12,10 @@ export const requestCardBatchSuccess = createStandardAction('REQUEST_CARD_BATCH_
     })
 );
 
-export const requestCardBatchFailure = createStandardAction('REQUEST_CARD_BATCH_FAILURE')();
+export const requestCardBatchFailure = createStandardAction('REQUEST_CARD_BATCH_FAILURE').map(
+    (errorMessage: string) => ({
+        payload: errorMessage
+    })
+);
 
 export const lastCardBatchRetrieved = createStandardAction('LAST_CARD_BATCH_RETRIEVED')();
