@@ -5,7 +5,7 @@ import { ActionsObservable, StateObservable } from 'redux-observable';
 import { nextCardBatchEpic } from './nextCardBatchEpic';
 import { State } from '../state';
 import actions, { Action } from '../actions';
-import * as apiService from '../../apiService';
+import apiService from '../../apiService';
 import { Card } from '../../models';
 import { cardBatchSize } from '../../config';
 import { getInitialState, getCards } from '../../mocks';
@@ -18,7 +18,8 @@ describe('nextCardBatchEpic', () => {
         mockApiResponse.next(response);[]
     const emitApiError = (errorMsg: string) => mockApiResponse.error(errorMsg);
     
-    const mockApi: typeof apiService = {
+    const mockApi = {
+        ...apiService,
         fetchCardBatch: (batchSize: number, batchIndex: number) => {
             requestedBatchIndex = batchIndex;
             return mockApiResponse.pipe(first());

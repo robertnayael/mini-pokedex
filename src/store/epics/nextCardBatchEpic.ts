@@ -4,7 +4,7 @@ import { Epic } from 'redux-observable';
 import { cardBatchSize } from '../../config';
 import { ofType } from './helpers';
 import actions, { Action } from '../actions';
-import * as apiService from '../../apiService';
+import { ApiService } from '../../apiService';
 import { State } from '../state';
 import * as selectors from '../selectors';
 import { of } from 'rxjs';
@@ -15,7 +15,7 @@ import { of } from 'rxjs';
  * Dispatches a success or failure action when the request completes. Stops listening
  * to the action stream once the final batch has been retrieved.
  */
-const nextCardBatchEpic: Epic<Action, Action, State, typeof apiService> = (action$, state$, api) => action$.pipe(
+const nextCardBatchEpic: Epic<Action, Action, State, ApiService> = (action$, state$, api) => action$.pipe(
     ofType(actions.requestCardBatch),
     switchMapTo(state$.pipe(
         map(selectors.getNextBatchIndex(cardBatchSize)),
