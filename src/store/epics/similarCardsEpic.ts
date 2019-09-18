@@ -1,5 +1,5 @@
 import { of, EMPTY } from 'rxjs';
-import { map, catchError, withLatestFrom, switchMap, filter } from 'rxjs/operators';
+import { map, catchError, withLatestFrom, switchMap, filter, takeUntil } from 'rxjs/operators';
 import { Epic } from 'redux-observable';
 
 import actions, { Action } from '../actions';
@@ -7,6 +7,7 @@ import { ApiService } from '../../apiService';
 import { State } from '../state';
 import * as selectors from '../selectors';
 import { isActionOf } from 'typesafe-actions';
+import { ofType } from './helpers';
 
 const similarCardsEpic: Epic<Action, Action, State, ApiService> = (action$, state$, api) => action$.pipe(
     filter(action =>
@@ -30,7 +31,10 @@ const similarCardsEpic: Epic<Action, Action, State, ApiService> = (action$, stat
             map(similarCards => ({
                 similarCards,
                 card: baseCard
-            }))
+            })),
+            takeUntil(action$.pipe(
+                ofType(actions.closeCardDetails)
+            ))
         );
     }),
     map(actions.fetchSimilarCardsSuccess),

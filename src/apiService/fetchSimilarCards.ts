@@ -19,7 +19,7 @@ const fetchSimilarCards = (card: Card, fetcher = fetchJson) => {
     const rarity = card.rarity;
 
     return fetcher(
-        `https://api.pokemontcg.io/v1/cards?pageSize=1000&types=${types}&rarity=${rarity}&hp=gte${hpRange.min}`,
+        `https://api.pokemontcg.io/v1/cards?pageSize=1000&supertype=Pokémon&types=${types}&rarity=${rarity}&hp=gte${hpRange.min}`,
         jsonProcessor
     ).pipe(
         pluck('response'),
