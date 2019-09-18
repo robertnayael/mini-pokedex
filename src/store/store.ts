@@ -4,12 +4,12 @@ import { createEpicMiddleware } from 'redux-observable';
 
 import rootEpic from './epics';
 import reducer from './reducer';
-import * as apiService from '../apiService';
+import apiService, { ApiService } from '../apiService';
 import { Action } from './actions';
 import { State } from './state';
 
 function configureStore() {
-    const epicMiddleware = createEpicMiddleware<Action, Action, State, typeof apiService>({
+    const epicMiddleware = createEpicMiddleware<Action, Action, State, ApiService>({
         dependencies: apiService
     });
 
