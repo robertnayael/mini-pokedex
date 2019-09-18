@@ -24,6 +24,7 @@ const fetchSimilarCards = (card: Card, fetcher = fetchJson) => {
     ).pipe(
         pluck('response'),
         map(cards => cards
+            .filter(({ id }) => id !== card.id)
             .filter(({ hp }) => +hp <= hpRange.max)
             .sort((a, b) => +a.hp - +b.hp)
             .slice(0, MAX_CARDS)
