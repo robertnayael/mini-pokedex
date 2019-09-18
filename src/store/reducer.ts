@@ -74,9 +74,7 @@ function reducer(state: State = initialState, action: Action): State {
                     ...state.pendingRequests,
                     selectedCard: false,
                     similarCards: false
-                },
-                selectedCardID: null
-
+                }
             }
         }
 
