@@ -13,6 +13,14 @@ describe('`fetchJson()` utility', () => {
 
     let subscription: Subscription | null;
 
+    beforeAll(() => {
+        jest.setTimeout(0);
+    });
+
+    afterAll(() => {
+        jest.setTimeout(5000);
+    });
+
     beforeEach(() => {
         subscription && subscription.unsubscribe();
         subscription = null;
@@ -29,93 +37,90 @@ describe('`fetchJson()` utility', () => {
     });
 
     it('does not send request until subscribed to', async () => {
-        let requestSent = false;
-
+        let sent = false;
+        
         xhrMock.get('some-url', (_, response) => {
-            requestSent = true;
+            sent = true;
+
             return response;
         });
+        
         fetchJson('some-url', () => {});
 
         await microtaskQueue();
 
-        expect(requestSent).toBe(false);
+        expect(sent).toBe(false);
     });
 
-    it('sends request on subscription', async () => {
-        let requestSent = false;
-
-        xhrMock.get('some-url', (_, response) => {
-            requestSent = true;
-            return response;
+    it('sends request on subscription', () => {
+        const requestSent = new Promise(resolve => {
+            xhrMock.get('some-url', (_, response) => {
+                resolve(true);
+                return response;
+            });
         });
+
         subscription = fetchJson('some-url', () => {}).subscribe();
 
-        await microtaskQueue();
-
-        expect(requestSent).toBe(true);
+        expect(requestSent).resolves.toBe(true);
     });
 
-    it('throws on http error', async () => {
-        let errorOccurred = false;
+    it('throws on http error', () => {
         xhrMock.get('some-url', (_, response) =>
             response
                 .body({})
                 .status(404)
         );
 
-        subscription = fetchJson('some-url', () => {})
+        const error = new Promise(resolve => {
+            subscription = fetchJson('some-url', () => {})
             .subscribe({
-                error: () => errorOccurred = true
+                error: () => resolve(true)
             });
+        });
 
-        await microtaskQueue();
-
-        expect(errorOccurred).toBe(true);
+        expect(error).resolves.toBe(true);
     });
 
-    it('throws on non-JSON response', async () => {
-        let errorOccurred = false;
+    it('throws on non-JSON response', () => {
         xhrMock.get('some-url', (_, response) =>
             response
                 .body('definitely not a JSON response')
                 .status(200)
         );
 
-        subscription = fetchJson('some-url', () => {})
+        const error = new Promise(resolve => {
+            subscription = fetchJson('some-url', () => {})
             .subscribe({
-                error: () => errorOccurred = true
+                error: () => resolve(true)
             });
+        });
 
-        await microtaskQueue();
-
-        expect(errorOccurred).toBe(true);
+        expect(error).resolves.toBe(true);
     });
 
-    it('completes stream after receiving response', async () => {
-        let completed = false;
+    it('completes stream after receiving response', () => {
         xhrMock.get('some-url', (_, response) =>
             response
                 .body({})
                 .status(200)
         );
 
-        subscription = fetchJson('some-url', () => {})
+        const isCompleted = new Promise(resolve => {
+            subscription = fetchJson('some-url', () => {})
             .subscribe({
-                complete: () => completed = true
+                complete: () => resolve(true)
             });
+        });
 
-        await microtaskQueue();
-
-        expect(completed).toBe(true);
+        expect(isCompleted).resolves.toBe(true);
     });
 
-    it('emits response headers', async () => {
+    it('emits response headers', () => {
         const headersSent = {
             header1: 'value1',
             header2: 'value2',
         };
-        let headersReceived = {};
 
         xhrMock.get('some-url', (_, response) =>
             response
@@ -124,19 +129,17 @@ describe('`fetchJson()` utility', () => {
                 .headers(headersSent)
         );
 
-        subscription = fetchJson('some-url', () => {})
-            .subscribe(
-                ({ headers }) => { headersReceived = headers }
-            );
+        const headersReceived = new Promise(resolve => {
+            subscription = fetchJson('some-url', () => {})
+                .subscribe(
+                    ({ headers }) => resolve(headers)
+                );
+        });
 
-        await microtaskQueue();
-
-        expect(headersSent).toEqual(headersReceived);
+        expect(headersReceived).resolves.toEqual(headersSent);
     });
 
-    it('emits transformed response', async () => {
-        let receivedData: any;
-
+    it('emits transformed response', () => {
         const originalData = {
             pokemons: [
                 { name: 'pikachu' },
@@ -155,14 +158,14 @@ describe('`fetchJson()` utility', () => {
             .status(200)
         );
 
-        subscription = fetchJson('some-url', transformerFn)
-            .subscribe(
-                ({ response }) => { receivedData = response }
-            );
+        const receivedData = new Promise(resolve => {
+            subscription = fetchJson('some-url', transformerFn)
+                .subscribe(
+                    ({ response }) => resolve(response)
+                );
+        });
 
-        await microtaskQueue();
-
-        expect(receivedData).toEqual(transformedData);
+        expect(receivedData).resolves.toEqual(transformedData);
     });
 
 });
