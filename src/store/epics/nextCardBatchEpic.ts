@@ -1,4 +1,4 @@
-import { exhaustMap, map, switchMapTo, takeUntil, tap, first, catchError } from 'rxjs/operators';
+import { exhaustMap, map, switchMapTo, takeUntil, first, catchError } from 'rxjs/operators';
 import { Epic } from 'redux-observable';
 
 import { cardBatchSize } from '../../config';

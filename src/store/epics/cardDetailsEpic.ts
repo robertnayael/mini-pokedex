@@ -1,5 +1,5 @@
 import { of, EMPTY } from 'rxjs';
-import { map, catchError, withLatestFrom, pluck, switchMap } from 'rxjs/operators';
+import { map, catchError, withLatestFrom, pluck, switchMap, takeUntil } from 'rxjs/operators';
 import { Epic } from 'redux-observable';
 
 import { ofType } from './helpers';
@@ -17,7 +17,11 @@ const cardDetailsEpic: Epic<Action, Action, State, ApiService> = (action$, state
     )),
     switchMap(([ id, cardExists ]) => cardExists
         ? EMPTY
-        : api.fetchCard(id)
+        : api.fetchCard(id).pipe(
+            takeUntil(action$.pipe(
+                ofType(actions.closeCardDetails)
+            ))
+        )
     ),
     map(actions.fetchCardDetailsSuccess),
     catchError(errorMessage => of(actions.fetchCardDetailsFailure(errorMessage)))

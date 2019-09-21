@@ -8,7 +8,7 @@ const jsonProcessor = (data: any): Card[] =>
 
 const fetchCardBatch = (batchSize: number, batchIndex: number, fetcher = fetchJson) =>
     fetcher(
-        `https://api.pokemontcg.io/v1/cards?pageSize=${batchSize}&page=${batchIndex + 1}`,
+        `https://api.pokemontcg.io/v1/cards?pageSize=${batchSize}&page=${batchIndex + 1}&supertype=Pokémon`,
         jsonProcessor
     ).pipe(
         map(({ headers, response }) => ({
