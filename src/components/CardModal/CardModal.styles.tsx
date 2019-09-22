@@ -70,11 +70,42 @@ export const Modal = styled.div.attrs<ModalProps, ExtModalProps>(
 `;
 
 export const CloseButton = styled(Link)`
-    display: block;
     position: absolute;
-    background: red;
+    display: inline-block;
     right: .5rem;
     top: .5rem;
     width: 3rem;
     height: 3rem;
+    overflow: hidden;
+    &:hover {
+        &::before, &::after {
+            background: rgb(131,16,16);
+        }
+    }
+    &:active {
+            &::before {
+                transform: rotate(45deg) scale(1.1);
+            }
+            &::after {
+                transform: rotate(-45deg) scale(1.1);
+            }
+    }
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 0;
+        background: #5a5252;
+        height: 0.5rem;
+        margin-top: -0.2rem;
+        border-radius:  0.315rem;
+        transition: transform 200ms, background 200ms;
+    }
+    &::before {
+        transform: rotate(45deg);
+    }
+    &::after {
+        transform: rotate(-45deg);
+    }
 `;
