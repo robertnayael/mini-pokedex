@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { LoadMoreCards, MainList } from '../../components';
 import { actions } from '../../store';
-import { getCardList } from '../../store/selectors';
+import { getCardList, getIsCardListPending } from '../../store/selectors';
 import { appTitle } from '../../config';
 
 const CardList: React.FC = () => {
 
     const dispatch = useDispatch();
     const cards = useSelector(getCardList);
+    const isPending = useSelector(getIsCardListPending);
 
     const requestNextBatch = useCallback(
         () => { dispatch(actions.requestCardBatch()) },
@@ -26,6 +27,8 @@ const CardList: React.FC = () => {
             <MainList
                 cards={cards}
                 title={appTitle}
+                isNextBatchPending={isPending}
+                noMoreBatches={false}
             />
             <LoadMoreCards
                 phantomItems={20}

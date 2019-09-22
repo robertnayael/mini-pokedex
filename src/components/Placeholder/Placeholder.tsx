@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 const shimmer = keyframes`
-    0%{
+    0% {
         background-position: 0% 0;
     }
     25%, 100% {

@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { Placeholder } from '../';
 
 export const List = styled.ul`
     margin: 0 auto;
@@ -28,5 +29,15 @@ export const CardContainer = styled.li`
     width: 19rem;
     margin: 0.5rem;
     list-style: none;
-    /* border: 1px solid black; */
+`;
+
+export const CardPlaceholder = styled(Placeholder)`
+    height: 25rem;
+    width: 19rem;
+    margin: 0.5rem;
+`;
+
+export const PhantomItem = styled.li`
+    display: block;
+    width: 19rem;
 `;

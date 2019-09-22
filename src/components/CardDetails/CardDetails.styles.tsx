@@ -1,6 +1,11 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Placeholder } from '../';
+
+const fadeIn = keyframes`
+    from { opacity: 0 }
+    to   { opacity: 1 }
+`;
 
 export const Details = styled.div`
     background: #fff;
@@ -19,6 +24,7 @@ export const TopWrapper = styled.div`
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+    animation: ${fadeIn} 1s;
 `;
 
 export const ImagePlaceholder = styled(Placeholder)`
