@@ -58,7 +58,6 @@ export const Modal = styled.div.attrs<ModalProps, ExtModalProps>(
     left: 50%;
     width: 50rem;
     max-width: 90vw;
-    height: 50rem;
     max-height: 90vh;
     transform: translate(-50%, 100vh);
     animation-fill-mode: forwards;

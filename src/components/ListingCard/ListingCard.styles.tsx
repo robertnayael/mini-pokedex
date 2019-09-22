@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Container = styled.li`
+export const Container = styled.div`
     display: block;
-    height: 24rem;
-    width: 19rem;
-    margin: 0.5rem;
+    width: 100%;
+    height: 100%;
     border: 1px solid lightgray;
     background: #fff;
     backface-visibility: hidden;
@@ -23,17 +22,17 @@ export const StyledLink = styled(Link)`
     display: block;
     height: 100%;
     text-decoration: none;
-    color: black;
-`
+    color: #5a5252;
+`;
 
-export const Placeholder = styled(
+export const ImageLowRes = styled(
     ({ src, ...props }) => <div {...props} />
 )<{ src: string }>`
     display: block;
     position: relative;
-    width: 17rem;
-    height: 17rem;
-    margin: 1rem;
+    width: 90%;
+    padding-top: 100%;
+    margin: 5% 5% 2.5% 5%;
     border: 1px solid darkgray;
     background-image: url('${p => p.src}');
     background-repeat: no-repeat;
@@ -41,27 +40,32 @@ export const Placeholder = styled(
     background-position: 50% 15%;
 `;
 
-export const Image = styled(Placeholder)`
+export const ImageHiRes = styled(ImageLowRes)`
     position: absolute;
     top: -1px;
     left: -1px;
     margin: 0;
-`
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+`;
+
+export const ImageContainer = styled.div``;
+
 
 export const Name = styled.span`
     display: block;
-    height: 2rem;
-    line-height: 2rem;
-    font-size: 1.8rem;
+    font-size: 28px;
+    line-height: 32px;
     font-weight: 500;
     text-align: center;
+
 `;
 
 export const Type = styled.span`
     display: block;
-    height: 2rem;
-    line-height: 2rem;
-    font-size: 1.5rem;
+    font-size: 24px;
+    line-height: 32px;
     font-weight: normal;
     text-align: center;
+
 `;

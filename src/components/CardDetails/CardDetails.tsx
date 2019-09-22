@@ -4,15 +4,25 @@ import { Card } from '../../models';
 import {
     Details,
     Image,
+    ImagePlaceholder,
     Properties,
     Property,
     PropertyName,
+    PropertyValue,
     TopWrapper,
     Weakness,
-    Weaknesses
+    Weaknesses,
+    SimilarCardsHeader,
+    SimilarCardOuter,
+    SimilarCardInner,
+    SimilarCards,
+    SimilarCardContent
 } from './CardDetails.styles';
+import { ListingCard } from '..';
 
-interface CardDetailsProps extends Card {}
+interface CardDetailsProps extends Card {
+    similarCards: Card[] | null;
+}
 
 const CardDetails: React.FC<CardDetailsProps> = ({
     id,
@@ -27,41 +37,85 @@ const CardDetails: React.FC<CardDetailsProps> = ({
     weaknesses,
     attacks,
     evolvesFrom,
-    imageUrlHiRes
+    imageUrlHiRes,
+    similarCards,
 }) => (
     <Details>
         <TopWrapper>
-            <Image src={imageUrlHiRes}/>
+            <ImagePlaceholder>
+                <Image src={imageUrlHiRes}/>
+            </ImagePlaceholder>
             <Properties>
-                <PropertyName>Name</PropertyName>
-                <Property>{name}</Property>
-                <PropertyName>Supertype</PropertyName>
-                <Property>{supertype}</Property>
-                <PropertyName>Identifier</PropertyName>
-                <Property>{id}</Property>
-                <PropertyName>Series</PropertyName>
-                <Property>{series}</Property>
-                <PropertyName>Types</PropertyName>
-                <Property>{types.join(', ')}</Property>
-                <PropertyName>Rarity</PropertyName>
-                <Property>{rarity}</Property>
-                <PropertyName>National Pokédex number</PropertyName>
-                <Property>{nationalPokedexNumber}</Property>
-                <PropertyName>HP</PropertyName>
-                <Property>{hp}</Property>
-                <PropertyName>Set</PropertyName>
-                <Property>{set}</Property>
-                {evolvesFrom && <PropertyName>Evolves from</PropertyName>}
-                {evolvesFrom && <Property>{evolvesFrom}</Property>}
-                <PropertyName>{weaknesses.length > 1 ? 'Weaknesses' : 'Weakness'}</PropertyName>
+                <Property long>
+                    <PropertyName>Name</PropertyName>
+                    <PropertyValue>{name}</PropertyValue>
+                </Property>
                 <Property>
-                    <Weaknesses>
-                        {weaknesses.map(({ type, value }) => <Weakness key={type}>{`${type}: ${value}`}</Weakness>)}
-                    </Weaknesses>
+                    <PropertyName>Supertype</PropertyName>
+                    <PropertyValue>{supertype}</PropertyValue>
+                </Property>
+                <Property>
+                    <PropertyName>Identifier</PropertyName>
+                    <PropertyValue>{id}</PropertyValue>
+                </Property>
+                <Property>
+                    <PropertyName>Series</PropertyName>
+                    <PropertyValue>{series}</PropertyValue>
+                </Property>
+                <Property>
+                    <PropertyName>{types.length > 1 ? 'Types' : 'Type'}</PropertyName>
+                    <PropertyValue>{types.join(', ')}</PropertyValue>
+                </Property>
+                <Property>
+                    <PropertyName>Rarity</PropertyName>
+                    <PropertyValue>{rarity}</PropertyValue>
+                </Property>
+                <Property>
+                    <PropertyName>National Pokédex No.</PropertyName>
+                    <PropertyValue>{nationalPokedexNumber}</PropertyValue>
+                </Property>
+                <Property>
+                    <PropertyName>HP</PropertyName>
+                    <PropertyValue>{hp}</PropertyValue>
+                </Property>
+                <Property>
+                    <PropertyName>Set</PropertyName>
+                    <PropertyValue>{set}</PropertyValue>
+                </Property>
+                {
+                    evolvesFrom &&
+                    <Property>
+                        <PropertyName>Evolves from</PropertyName>
+                        <PropertyValue>{evolvesFrom}</PropertyValue>
+                    </Property>
+                }
+                <Property long>
+                    <PropertyName>{weaknesses.length > 1 ? 'Weaknesses' : 'Weakness'}</PropertyName>
+                    <PropertyValue>
+                        <Weaknesses>
+                            {weaknesses.map(({ type, value }) => <Weakness key={type}>{`${type}: ${value}`}</Weakness>)}
+                        </Weaknesses>
+                    </PropertyValue>
                 </Property>
             </Properties>
         </TopWrapper>
-    
+
+        <SimilarCardsHeader>Similar cards:</SimilarCardsHeader>
+        <div>
+            <SimilarCards>
+                {
+                    similarCards && similarCards.map(card => (
+                        <SimilarCardOuter key={card.id} >
+                            <SimilarCardInner>
+                                <SimilarCardContent>
+                                    <ListingCard {...card} container={SimilarCardContent}/>
+                                </SimilarCardContent>
+                            </SimilarCardInner>
+                        </SimilarCardOuter>
+                    ))
+                }
+            </SimilarCards>
+        </div>
 
     </Details>
 );

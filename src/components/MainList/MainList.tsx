@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Card } from '../../models';
 import { ListingCard } from '../';
-import { List, Header } from './MainList.styles';
+import { CardContainer, List, Header } from './MainList.styles';
 
 interface MainListProps {
     title: string;
@@ -13,10 +13,13 @@ const MainList: React.FC<MainListProps> = ({ cards, title }) => (
     <React.Fragment>
         <Header>{title}</Header>
         <List>
-            {cards.map(card => <ListingCard
-                key={card.id}
-                {...card}
-            />)}
+            {cards.map(card =>
+                <ListingCard
+                    key={card.id}
+                    container={CardContainer}
+                    {...card}
+                />
+            )}
         </List>
     </React.Fragment>
 );
