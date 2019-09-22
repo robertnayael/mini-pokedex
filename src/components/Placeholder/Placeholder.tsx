@@ -10,6 +10,7 @@ const shimmer = keyframes`
 `;
 
 const Placeholder = styled.div`
+    display: block;
     animation-duration: 2s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;

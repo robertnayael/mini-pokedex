@@ -1,6 +1,6 @@
 import React from 'react';
-import styled, { keyframes } from "styled-components";
-import { Placeholder, ListingCard } from '../';
+import styled from "styled-components";
+import { Placeholder } from '../';
 
 export const Details = styled.div`
     background: #fff;
@@ -19,15 +19,6 @@ export const TopWrapper = styled.div`
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-`;
-
-const shimmer = keyframes`
-    0%{
-        background-position: 0% 0;
-    }
-    25%, 100% {
-        background-position: 100% 0;
-    }
 `;
 
 export const ImagePlaceholder = styled(Placeholder)`
@@ -56,11 +47,28 @@ export const Properties = styled.ul`
 `;
 
 export const Property = styled(
-    ({long, ...props}) => <li {...props}/>
+    ({ long, ...props }) => <li {...props}/>
 )<{ long?: boolean }>`
     display: block;
     width: ${p => p.long ? 100 : 50}%;
     margin-bottom: 0.5rem;
+`;
+
+export const PropertyPlaceholder = styled(
+    ({ long, ...props }) => <Placeholder as="li" {...props}/>
+).attrs<{ long?: boolean }, { width: number; margin: number; }>(
+    ({ long }) => {
+        const randomVal = Math.round(Math.random() * 10);
+        const width = (long ? 70 : 35) + randomVal;
+        const margin = long ? 0 : 50 -width;
+        return { width, margin };
+    }
+)<{ long?: boolean }>`
+    width: ${p => p.width}%;
+    margin-right: ${p => p.margin}%;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
 `;
 
 export const PropertyName = styled.span`
@@ -70,7 +78,7 @@ export const PropertyName = styled.span`
     &:after {
         content: ':';
     }
-    ${Property}:first-child > & {
+    li:first-child > & {
         font-size: 1.4em;
     }
 `;
@@ -79,7 +87,7 @@ export const PropertyValue = styled.span`
     display: block;
     white-space: nowrap;
     font-weight: bold;
-    ${Property}:first-child > & {
+    li:first-child > & {
         font-size: 1.8em;
     }
 `;

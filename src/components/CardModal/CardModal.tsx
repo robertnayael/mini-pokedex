@@ -24,7 +24,7 @@ const CardModal: React.FC<CardModalProps> = ({ card, similarCards, isOpen, wasOp
             <CloseButton
                 to="/"
             />
-            {card && <CardDetails similarCards={similarCards} {...card} />}
+            <CardDetails similarCards={similarCards} card={card} />
         </Modal>
     </Portal>
 );
