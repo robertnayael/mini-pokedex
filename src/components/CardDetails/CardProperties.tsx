@@ -6,8 +6,8 @@ import {
     Property,
     PropertyName,
     PropertyValue,
-    Weakness,
-    Weaknesses,
+    SubProperty,
+    SubProperties,
 } from './CardDetails.styles';
 
 
@@ -77,9 +77,26 @@ const CardProperties: React.FC<Card> = ({
             <Property long>
                 <PropertyName>{weaknesses.length > 1 ? 'Weaknesses' : 'Weakness'}</PropertyName>
                 <PropertyValue>
-                    <Weaknesses>
-                        {weaknesses.map(({ type, value }) => <Weakness key={type}>{`${type}: ${value}`}</Weakness>)}
-                    </Weaknesses>
+                    <SubProperties>
+                        {weaknesses.map(({ type, value }) =>
+                            <SubProperty key={type}>
+                                {type}: <b>{value}</b>
+                            </SubProperty>)}
+                    </SubProperties>
+                </PropertyValue>
+            </Property>
+        }
+                {
+            attacks &&
+            <Property long>
+                <PropertyName>{attacks.length > 1 ? 'Attacks' : 'Attack'}</PropertyName>
+                <PropertyValue>
+                    <SubProperties>
+                        {attacks.map(({ name, cost, damage }) =>
+                            <SubProperty key={name}>
+                                <b>{name}</b> (cost: <b>{cost.join(', ')}</b> DMG: <b>{damage}</b>)
+                            </SubProperty>)}
+                    </SubProperties>
                 </PropertyValue>
             </Property>
         }

@@ -98,11 +98,14 @@ export const PropertyValue = styled.span`
     }
 `;
 
-export const Weaknesses = styled.ul`
+export const SubProperties = styled.ul`
     list-style: none;
 `;
 
-export const Weakness = styled.li``;
+export const SubProperty = styled.li`
+    white-space: normal;
+    font-weight: normal;
+`;
 
 export const SimilarCardsHeader = styled.h2`
     line-height: 3em;
