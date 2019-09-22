@@ -15,8 +15,9 @@ import {
     SimilarCardsHeader,
     SimilarCardOuter,
     SimilarCardInner,
-    SimilarCards,
-    SimilarCardContent
+    SimilarCardsList,
+    SimilarCardContent,
+    SimilarCardPlaceholder
 } from './CardDetails.styles';
 import { ListingCard } from '..';
 
@@ -102,25 +103,43 @@ const CardDetails: React.FC<CardDetailsProps> = ({
                 </Property>
             </Properties>
         </TopWrapper>
-
         <SimilarCardsHeader>Similar cards:</SimilarCardsHeader>
         <div>
-            <SimilarCards>
-                {
-                    similarCards && similarCards.map(card => (
-                        <SimilarCardOuter key={card.id} >
-                            <SimilarCardInner>
-                                <SimilarCardContent>
-                                    <ListingCard {...card} container={SimilarCardContent}/>
-                                </SimilarCardContent>
-                            </SimilarCardInner>
-                        </SimilarCardOuter>
-                    ))
-                }
-            </SimilarCards>
+            <SimilarCards cards={similarCards}/>
         </div>
-
     </Details>
+);
+
+const SimilarCards: React.FC<{ cards: Card[] | null }> = ({ cards }) => {
+    const content = cards
+        ? cards.map(card => (
+            <SimilarCard key={card.id}>
+                <ListingCard {...card} container={SimilarCardContent}/>
+            </SimilarCard>
+        ))
+        : Array(3).fill(null).map((_, i) => (
+            <SimilarCard key={i}>
+                <SimilarCardPlaceholder style={{
+                    animationDelay: `${i * 300}ms`
+                }}/>
+            </SimilarCard>
+        ));
+
+    return (
+        <SimilarCardsList>
+            {content}
+        </SimilarCardsList>
+    );
+}
+
+const SimilarCard: React.FC = ({ children }) => (
+    <SimilarCardOuter>
+        <SimilarCardInner>
+            <SimilarCardContent>
+                {children}
+            </SimilarCardContent>
+        </SimilarCardInner>
+    </SimilarCardOuter>
 );
 
 export default CardDetails;

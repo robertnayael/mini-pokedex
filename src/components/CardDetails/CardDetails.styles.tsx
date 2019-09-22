@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from "styled-components";
+import { Placeholder, ListingCard } from '../';
 
 export const Details = styled.div`
     background: #fff;
@@ -29,19 +30,11 @@ const shimmer = keyframes`
     }
 `;
 
-export const ImagePlaceholder = styled.div`
+export const ImagePlaceholder = styled(Placeholder)`
     align-self: flex-end;
     position: relative;
     width: 30%;
     padding-top: calc(30% * 1.4);
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: ${shimmer};
-    animation-timing-function: linear;
-    background: darkgray;
-    background: linear-gradient(to right, #dddddd 40%, #e6e6e6 50%, #dddddd 60%);
-    background-size: 300% 100%;
 `;
 
 export const Image = styled.img`
@@ -103,7 +96,7 @@ export const SimilarCardsHeader = styled.h2`
     font-weight: 500;
 `;
 
-export const SimilarCards = styled.ul`
+export const SimilarCardsList = styled.ul`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -125,6 +118,11 @@ export const SimilarCardContent = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+`;
+
+export const SimilarCardPlaceholder = styled(Placeholder)`
     width: 100%;
     height: 100%;
 `;
