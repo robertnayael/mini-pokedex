@@ -18,7 +18,7 @@ const lastCardBatchEpic: Epic<Action, Action, State> = (action$, state$) => acti
         map(selectors.getCardListCount)
     )),
     filter(([totalCards, cardListCount]) => cardListCount === totalCards),
-    mapTo(actions.lastCardBatchRetrieved())
+    mapTo(actions.finalCardBatchRetrieved())
 );
 
 export { lastCardBatchEpic };

@@ -13,6 +13,8 @@ export const getSelectedCardID = (state: State) => state.selectedCardID;
 
 export const getSimilarCardIDs = (state: State) => state.similarCardIDs;
 
+export const getFinalBatchRetrieved = (state: State) => state.finalBatchRetrieved;
+
 export const getIsSelectedCardPending = createSelector(
     [ getPendingRequests ],
     pendingRequests => pendingRequests.selectedCard

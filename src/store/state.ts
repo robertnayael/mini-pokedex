@@ -10,10 +10,10 @@ export interface State {
         [id: string]: Card
     },
     /** 
-     * Maximum number of cards that can be retrieved; beyond that point there's
-     * no need to attempt fetching more cards.
+     * Indicates that all cards have been retrieved and there's no point sending more
+     * requests.
      */
-    totalCards: number | null;
+    finalBatchRetrieved: boolean;
     /** ID's of cards displayed in the main list */
     cardListIDs: string[],
     /** ID of the currently selected card, or `null` if no card is selected */
@@ -48,7 +48,7 @@ export interface State {
 
 const initialState: State = {
     cards: {},
-    totalCards: null,
+    finalBatchRetrieved: false,
     cardListIDs: [],
     similarCardIDs: {},
     selectedCardID: null,
