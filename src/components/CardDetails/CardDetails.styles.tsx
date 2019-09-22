@@ -68,9 +68,6 @@ export const Property = styled(
     display: block;
     width: ${p => p.long ? 100 : 50}%;
     margin-bottom: 0.5rem;
-    &:first-child {
-        font-size: 1.3em;
-    }
 `;
 
 export const PropertyName = styled.span`
@@ -80,12 +77,18 @@ export const PropertyName = styled.span`
     &:after {
         content: ':';
     }
+    ${Property}:first-child > & {
+        font-size: 1.4em;
+    }
 `;
 
 export const PropertyValue = styled.span`
     display: block;
     white-space: nowrap;
-    font-weight: 500;
+    font-weight: bold;
+    ${Property}:first-child > & {
+        font-size: 1.8em;
+    }
 `;
 
 export const Weaknesses = styled.ul`
