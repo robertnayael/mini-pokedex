@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { Placeholder } from '../';
 
 export const List = styled.ul`
@@ -14,12 +14,13 @@ export const List = styled.ul`
 
 export const Header = styled.h1`
     margin: 2rem auto;
+    transform: translateX(1rem);
     width: 61rem;
     min-width: 320px;
     max-width: 100vw;
     font-size: 3rem;
     color: #fff;
-    text-shadow: 3px 3px 0px #e63931;
+    text-shadow: 3px 3px 0px #000;
     letter-spacing: 2px;
 `;
 
