@@ -66,10 +66,13 @@ const CardDetails: React.FC<CardDetailsProps> = ({
                     <PropertyName>{types.length > 1 ? 'Types' : 'Type'}</PropertyName>
                     <PropertyValue>{types.join(', ')}</PropertyValue>
                 </Property>
-                <Property>
-                    <PropertyName>Rarity</PropertyName>
-                    <PropertyValue>{rarity}</PropertyValue>
-                </Property>
+                {
+                    rarity &&
+                    <Property>
+                        <PropertyName>Rarity</PropertyName>
+                        <PropertyValue>{rarity}</PropertyValue>
+                    </Property>
+                }
                 <Property>
                     <PropertyName>National Pokédex No.</PropertyName>
                     <PropertyValue>{nationalPokedexNumber}</PropertyValue>
