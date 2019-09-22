@@ -72,14 +72,17 @@ const CardProperties: React.FC<Card> = ({
                 <PropertyValue>{evolvesFrom}</PropertyValue>
             </Property>
         }
-        <Property long>
-            <PropertyName>{weaknesses.length > 1 ? 'Weaknesses' : 'Weakness'}</PropertyName>
-            <PropertyValue>
-                <Weaknesses>
-                    {weaknesses.map(({ type, value }) => <Weakness key={type}>{`${type}: ${value}`}</Weakness>)}
-                </Weaknesses>
-            </PropertyValue>
-        </Property>
+        {
+            weaknesses &&
+            <Property long>
+                <PropertyName>{weaknesses.length > 1 ? 'Weaknesses' : 'Weakness'}</PropertyName>
+                <PropertyValue>
+                    <Weaknesses>
+                        {weaknesses.map(({ type, value }) => <Weakness key={type}>{`${type}: ${value}`}</Weakness>)}
+                    </Weaknesses>
+                </PropertyValue>
+            </Property>
+        }
     </Properties>
 );
 

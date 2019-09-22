@@ -9,10 +9,10 @@ interface MainListProps {
     title: string;
     cards: Card[];
     isNextBatchPending: boolean;
-    noMoreBatches: boolean;
+    finalBatchRetrieved: boolean;
 }
 
-const MainList: React.FC<MainListProps> = ({ cards, title, isNextBatchPending }) => (
+const MainList: React.FC<MainListProps> = ({ cards, title, isNextBatchPending, finalBatchRetrieved }) => (
     <React.Fragment>
         <Header>{title}</Header>
         <List>
@@ -24,7 +24,9 @@ const MainList: React.FC<MainListProps> = ({ cards, title, isNextBatchPending })
                 />
             )}
             {
-                isNextBatchPending && Array(cardBatchSize).fill(null).map((_, i) =>
+                !finalBatchRetrieved &&
+                isNextBatchPending &&
+                Array(cardBatchSize).fill(null).map((_, i) =>
                     <CardPlaceholder key={i}/>
                 )
             }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { LoadMoreCards, MainList } from '../../components';
 import { actions } from '../../store';
-import { getCardList, getIsCardListPending } from '../../store/selectors';
+import { getCardList, getIsCardListPending, getFinalBatchRetrieved } from '../../store/selectors';
 import { appTitle } from '../../config';
 
 const CardList: React.FC = () => {
@@ -11,6 +11,7 @@ const CardList: React.FC = () => {
     const dispatch = useDispatch();
     const cards = useSelector(getCardList);
     const isPending = useSelector(getIsCardListPending);
+    const finalBatchRetrieved = useSelector(getFinalBatchRetrieved);
 
     const requestNextBatch = useCallback(
         () => { dispatch(actions.requestCardBatch()) },
@@ -28,7 +29,7 @@ const CardList: React.FC = () => {
                 cards={cards}
                 title={appTitle}
                 isNextBatchPending={isPending}
-                noMoreBatches={false}
+                finalBatchRetrieved={finalBatchRetrieved}
             />
             <LoadMoreCards
                 phantomItems={20}
