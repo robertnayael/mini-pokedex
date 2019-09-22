@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { actions } from '../../store';
 import { getSelectedCard, getSimilarCards } from '../../store/selectors';
-import { CardModal } from '../../components';
+import { CardModal, DocumentTitle } from '../../components';
 
 interface SelectedCardProps {
     id: string | null;
@@ -23,12 +23,20 @@ const SelectedCard: React.FC<SelectedCardProps> = ({ id }) => {
     const [ wasOpenEver, setWasOpenEver ] = useState(false);
     isOpen && !wasOpenEver && setWasOpenEver(true);
 
-    return <CardModal
-      card={useSelector(getSelectedCard)}
-      similarCards={useSelector(getSimilarCards)}
-      isOpen={isOpen}
-      wasOpenEver={wasOpenEver}
-    />;
+    const card = useSelector(getSelectedCard);
+    const similarCards = useSelector(getSimilarCards);
+
+    return (
+      <React.Fragment>
+        {card && isOpen && <DocumentTitle>{card.name}</DocumentTitle>}
+        <CardModal
+          card={card}
+          similarCards={similarCards}
+          isOpen={isOpen}
+          wasOpenEver={wasOpenEver}
+        />
+      </React.Fragment>
+    );
 };
 
 export default SelectedCard;

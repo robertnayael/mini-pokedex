@@ -1,5 +1,13 @@
 body {
     font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+    background: rgb(131,16,16);
+    background: linear-gradient(90deg,
+        rgb(131,16,16) 0%,
+        rgb(137,19,18) 29%, 
+        rgb(255,82,32) 82%,
+        rgb(230,57,49) 100%);
+    color: #5a5252;
 }
 
 *, *:before, *:after {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LoadMoreCards, MainList } from '../../components';
 import { actions } from '../../store';
 import { getCardList } from '../../store/selectors';
-import { Link } from 'react-router-dom';
+import { appTitle } from '../../config';
 
 const CardList: React.FC = () => {
 
@@ -23,7 +23,10 @@ const CardList: React.FC = () => {
 
     return (
         <div>
-            <MainList cards={cards}/>
+            <MainList
+                cards={cards}
+                title={appTitle}
+            />
             <LoadMoreCards
                 phantomItems={20}
                 onVisible={requestNextBatch}

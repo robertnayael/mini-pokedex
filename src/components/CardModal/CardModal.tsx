@@ -11,7 +11,7 @@ interface CardModalProps {
     wasOpenEver: boolean;
 }
 
-const CardModal: React.FC<CardModalProps> = ({ card, isOpen, wasOpenEver }) => (
+const CardModal: React.FC<CardModalProps> = ({ card, similarCards, isOpen, wasOpenEver }) => (
     <Portal>
         <Backdrop
             visible={isOpen}
@@ -24,7 +24,7 @@ const CardModal: React.FC<CardModalProps> = ({ card, isOpen, wasOpenEver }) => (
             <CloseButton
                 to="/"
             />
-            {card && <CardDetails {...card} />}
+            <CardDetails similarCards={similarCards} card={card} />
         </Modal>
     </Portal>
 );
