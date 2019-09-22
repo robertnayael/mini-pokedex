@@ -13,7 +13,7 @@ const fetchCardBatch = (batchSize: number, batchIndex: number, fetcher = fetchJs
     ).pipe(
         map(({ headers, response }) => ({
             cards: response,
-            totalCards: parseInt(headers.totalCards, 10)
+            totalCards: parseInt(headers['total-count'], 10)
         }))
     );
 
