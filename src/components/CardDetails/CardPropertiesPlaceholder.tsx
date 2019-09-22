@@ -3,9 +3,6 @@ import React from 'react';
 import {
     Properties,
     PropertyPlaceholder,
-    Property,
-    PropertyName,
-    PropertyValue,
 } from './CardDetails.styles';
 
 
