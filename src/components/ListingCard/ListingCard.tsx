@@ -10,7 +10,7 @@ import {
     StyledLink,
     Type
 } from './ListingCard.styles';
-import { preloadImage } from '../../utils/preloadImage';
+import { preloadImage } from '../../utils';
 
 interface ListingCardProps extends Card {
     container: React.ComponentType;

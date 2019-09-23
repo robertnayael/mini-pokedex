@@ -1,5 +1,9 @@
 import { Observable, Subscriber } from 'rxjs'
 
+/**
+ * Utility made as part of another project.
+ * source: https://github.com/robertnayael/rxjs-utils/tree/develop/src/operators/preloadImage
+ */
 export function preloadImage(url: string) {
     return new Observable<number>((subscriber) => {
         const request = setupRequest(url, subscriber)
