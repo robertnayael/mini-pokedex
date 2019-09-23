@@ -9,8 +9,8 @@ import {
 const CardPropertiesPlaceholder: React.FC = () => (
     <Properties>
         <PropertyPlaceholder long />
-        {Array(14).fill(null).map(() =>
-            <PropertyPlaceholder/>
+        {Array(14).fill(null).map((_, i) =>
+            <PropertyPlaceholder key={i}/>
         )}
     </Properties>
 );

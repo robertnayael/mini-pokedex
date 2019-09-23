@@ -8,9 +8,9 @@ import CardList from './CardList';
 import { initialState, actions } from '../../store';
 import LoadMoreCards from '../../components/LoadMoreCards/LoadMoreCards';
 
-jest.mock('./LoadMoreCards');
+jest.mock('../../components/LoadMoreCards/LoadMoreCards');
 
-describe.skip('<CardList>', () => {
+describe('<CardList>', () => {
 
     let onVisibleCallback: () => void;
     let store: MockStore;

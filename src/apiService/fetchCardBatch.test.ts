@@ -14,11 +14,11 @@ describe('`fetchCardBatch()`', () => {
     it('sends request to correct endpoint', () => {
         const { fetcher, getRequestedUrl } = new MockFetcher(
             { cards: [] },
-            { totalCards: '42' }
+            { 'total-count': '42' }
         );
 
         subscription = fetchCardBatch(12, 3, fetcher).subscribe();
-        const expectedUrl = 'https://api.pokemontcg.io/v1/cards?pageSize=12&page=4';
+        const expectedUrl = 'https://api.pokemontcg.io/v1/cards?pageSize=12&page=4&supertype=Pokémon';
         const requestedUrl = getRequestedUrl();
 
         expect(requestedUrl).toBe(expectedUrl);
@@ -29,7 +29,7 @@ describe('`fetchCardBatch()`', () => {
 
         const { fetcher } = new MockFetcher(
             { cards: [] },
-            { totalCards: '42' }
+            { 'total-count': '42' }
         );
 
         subscription = fetchCardBatch(10, 1, fetcher)

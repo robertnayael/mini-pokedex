@@ -93,7 +93,7 @@ describe('nextCardBatchEpic', () => {
             () => hasTriggered = true
         );
 
-        emitAction(actions.lastCardBatchRetrieved());
+        emitAction(actions.finalCardBatchRetrieved());
         emitAction(actions.requestCardBatch());
         emitApiResponse({ cards: [], totalCards: 0 });
 

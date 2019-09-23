@@ -51,6 +51,13 @@ function reducer(state: State = initialState, action: Action): State {
             };
         }
 
+        case getType(actions.finalCardBatchRetrieved): {
+            return {
+                ...state,
+                finalBatchRetrieved: true
+            };
+        }
+
         case getType(actions.openCardDetails): {
             const id = action.payload;
             const cardExists = state.cards.hasOwnProperty(id);

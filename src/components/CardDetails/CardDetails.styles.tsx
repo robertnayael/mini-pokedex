@@ -1,6 +1,11 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Placeholder } from '../';
+
+const fadeIn = keyframes`
+    from { opacity: 0 }
+    to   { opacity: 1 }
+`;
 
 export const Details = styled.div`
     background: #fff;
@@ -19,6 +24,7 @@ export const TopWrapper = styled.div`
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+    animation: ${fadeIn} 1s;
 `;
 
 export const ImagePlaceholder = styled(Placeholder)`
@@ -92,11 +98,14 @@ export const PropertyValue = styled.span`
     }
 `;
 
-export const Weaknesses = styled.ul`
+export const SubProperties = styled.ul`
     list-style: none;
 `;
 
-export const Weakness = styled.li``;
+export const SubProperty = styled.li`
+    white-space: normal;
+    font-weight: normal;
+`;
 
 export const SimilarCardsHeader = styled.h2`
     line-height: 3em;

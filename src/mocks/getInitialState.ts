@@ -5,7 +5,7 @@ import { State } from '../store/state';
  */
 const getInitialState = (): State => ({
     cards: {},
-    totalCards: null,
+    finalBatchRetrieved: false,
     cardListIDs: [],
     similarCardIDs: {},
     selectedCardID: null,

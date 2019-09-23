@@ -18,7 +18,7 @@ export const requestCardBatchFailure = createStandardAction('REQUEST_CARD_BATCH_
     })
 );
 
-export const lastCardBatchRetrieved = createStandardAction('LAST_CARD_BATCH_RETRIEVED')();
+export const finalCardBatchRetrieved = createStandardAction('FINAL_CARD_BATCH_RETRIEVED')();
 
 export const openCardDetails = createStandardAction('OPEN_CARD_DETAILS').map(
     (cardId: string) => ({

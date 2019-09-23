@@ -25,7 +25,7 @@ const nextCardBatchEpic: Epic<Action, Action, State, ApiService> = (action$, sta
     map(actions.requestCardBatchSuccess),
     catchError(errorMessage => of(actions.requestCardBatchFailure(errorMessage))),
     takeUntil(action$.pipe(
-        ofType(actions.lastCardBatchRetrieved)
+        ofType(actions.finalCardBatchRetrieved)
     ))
 );
 

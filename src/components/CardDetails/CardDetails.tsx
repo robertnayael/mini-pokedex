@@ -19,7 +19,7 @@ interface CardDetailsProps {
 const CardDetails: React.FC<CardDetailsProps> = ({ card, similarCards }) => {
     return (
     <Details>
-        <TopWrapper>
+        <TopWrapper key={card ? card.id : 0}> {/* This way, the entry animation is always replayed */}
             <ImagePlaceholder>
                 {card && <Image src={card.imageUrlHiRes}/>}
             </ImagePlaceholder>
